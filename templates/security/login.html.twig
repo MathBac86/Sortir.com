@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sortie | Log in{% endblock %}
+
+{% block main %}
+    <div class="text-center">
+        <img  src="{{ asset('img/logo.png') }}" alt="Sortir.Com.fr">
+    </div>
+    <div id="connect">
+        <div class="Formulaire">
+            <h1>Connexion</h1>
+            <form method="post">
+
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                {% if app.user %}
+                    <div class="mb-3 text-center">
+                        <span style="color: whitesmoke;">{{ app.user.username }}, vous êtes déjà connecté </span><br><a href="{{ path('app_logout') }}">Logout</a>  / <a href="{{ path('home') }}">Accueil</a>
+                    </div>
+                {% endif %}
+
+                <input value="{{ last_username }}" id="inputPseudo" class="champ" type="text" name="pseudo" placeholder="votre pseudo" required autofocus>
+
+                <div id="show_hide_password">
+                    <input class="champ" name="password" id="inputPassword" type="password" placeholder="votre mot de passe">
+                </div>
+
+                <div class="checkbox mb-1">
+                    <label>
+                        <input type="checkbox" name="_remember_me"> Se souvenir de moi
+                    </label>
+                </div>
+
+                <div class="text-center">
+                    <a href="{{ path('oubli_mdp') }}" class="">Oubli mot de passe</a>
+                </div>
+
+                <div class="text-center mt-2 mb-3">
+                    <button class="btn btn-lg btn-success col-6" type="submit">Se Connecter</button>
+                    <a href="{{ path('inscription') }}" class="btn btn-lg btn-primary col-5" >Inscription</a>
+                </div>
+
+                <input type="hidden" name="_csrf_token"
+                       value="{{ csrf_token('authenticate') }}"
+                >
+
+                {#Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                See https://symfony.com/doc/current/security/remember_me.html#}
+
+            </form>
+        </div>
+    </div>
+{% endblock %}

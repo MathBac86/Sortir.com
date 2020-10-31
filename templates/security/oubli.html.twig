@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sortie | Oubli Mot de Passe{% endblock %}
+
+{% block main %}
+    <div class="text-center">
+        <img  src="{{ asset('img/logo.png') }}" alt="Sortir.Com.fr">
+    </div>
+    <div id="connect2">
+        <div class="connect">
+            <h1>Oubli Mot de Passe</h1>
+
+            <div class="justify-content-center mt-3 ">
+                {{ form_start(OubliMDPForm) }}
+
+                {{ form_widget(OubliMDPForm) }}
+                <button class="btn btn-outline-success btn-large btn-block mt-2 mb-1" type="submit">Envoyer !</button>
+                {{ form_end(OubliMDPForm) }}
+            </div>
+            <a href="{{ path('app_login') }}" class="btn btn-primary btn-large btn-block mb-2">Retour Login</a>
+        </div>
+    </div>
+{% endblock %}

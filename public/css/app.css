@@ -1,0 +1,372 @@
+html {
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    font-family: 'Source Sans Pro', sans-serif;
+    padding: 0;
+}
+
+body {
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    margin: 0 auto;
+    height: 100%;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+
+/* Login container */
+#connect {
+    position: absolute;
+    top: 15%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 350px;
+    height: 400px;
+    border-radius: 5px;
+    background: rgba(3,3,3,1);
+    opacity: 0.75;
+    box-shadow: 1px 1px 50px #000;
+    display: block;
+}
+
+/* page d'oubli mdp */
+#connect2 {
+    position: absolute;
+    top: 15%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 350px;
+    height: 350px;
+    border-radius: 5px;
+    background: rgba(3,3,3,1);
+    opacity: 0.75;
+    box-shadow: 1px 1px 50px #000;
+    display: block;
+    padding: 1%
+}
+
+#connect2 label {
+    color: #f1f2f3;
+    width: 30%;
+}
+
+#connect2 input {
+    width: 60%;
+}
+
+
+.placeholder{
+    color : white;
+    opacity: .5;
+}
+
+.close-btn:hover{
+    opacity: .5;
+}
+
+/* Heading */
+h1{
+    position: relative;
+    margin-top: 5px;
+    text-align: center;
+    font-size: 60px;
+    color: #ddd;
+    text-shadow: 3px 3px 10px #000;
+}
+
+/* Inputs */
+
+input, textarea, select  {
+    position: relative;
+    display: inline-block;
+    margin: 9px;
+    font-size: 17px;
+    color: #fff;
+    border-radius: 6px;
+    background: rgba(3,3,3,.1);
+    border-color: white;
+}
+
+select option {
+    color: #030303;
+}
+
+.champ, .champ1, .champ2 {
+    padding: 5px 5px;
+}
+
+.champ {
+    width: 85%;
+}
+
+.champ1 {
+    width: 95%;
+}
+
+.champ2 {
+    width: 49%;
+}
+
+textarea {
+    border : 1px solid white;
+}
+
+input:focus, textarea:hover{
+    outline: none;
+    box-shadow: 3px 3px 10px #333;
+}
+
+/* Placeholders */
+::-webkit-input-placeholder {
+    color: #ddd;  }
+::-moz-placeholder {  /* Firefox 19+ */
+    color: red;  }
+:-ms-input-placeholder {
+    color: #333;  }
+
+/* Link */
+
+
+.fa-eye, .fa-eye-slash {
+    color : white;
+    opacity: 0.9;
+}
+
+/* Inscription */
+.Inscription {
+    color: #f1f2f3;
+    position: absolute;
+    top: 15%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 550px;
+    height: 550px;
+    border-radius: 5px;
+    background: #030303;
+    opacity: .75;
+    box-shadow: 1px 1px 50px #000;
+    display: block;
+    padding:  0 2.5%;
+}
+
+.Inscription .btn, .Modif .btn {
+    width: 100%;
+}
+
+.Inscription label,
+.Inscription2 label,
+.Modif label {
+    width: 40%;
+}
+
+.Accueil label {
+    width: 50%;
+}
+
+.Inscription input, .Inscription select,
+.Inscription2 input, .Inscription2 select,
+.Modif input, .Modif select,
+.NSortie input, .NSortie select{
+    width: 60%;
+    margin: 0;
+}
+
+.Accueil select, .Accueil input, .Accueil textarea {
+    width: 50%;
+    margin: 0;
+}
+
+header{
+    background: #d7dbde;
+    width: 100%;
+}
+
+header label {
+    margin-bottom: -0.1em;
+}
+
+.left_area h3{
+    color: #fff;
+    margin: 0;
+    text-transform: uppercase;
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.left_area span{
+    color: #19B3D3;
+}
+
+main {
+    padding: .5rem 1rem;
+    top: 15%;
+}
+
+.row img {
+    margin-left: 40%;
+    width: 20%;
+}
+
+.info {
+    margin-top: 5%;
+}
+
+@media (max-width: 576px) {
+    .InfoP {
+        margin-left: 20%;
+    }
+}
+
+.Modif {
+    color: #f1f2f3;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 550px;
+    height: auto;
+    border-radius: 5px;
+    background: #030303;
+    opacity: .75;
+    box-shadow: 1px 1px 50px #000;
+    display: block;
+    padding:  0 2.5%;
+}
+
+.participant img {
+    border: 2px solid black;
+    border-radius: 50%;
+}
+
+table {
+    border: 1px solid black;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    width: 100%;
+}
+
+thead, tbody, td, th {
+    border: 1px solid black;
+}
+
+.camp1 {
+    width: 13%;
+}
+
+.camp2 {
+    width: 11%;
+}
+
+.camp3 {
+    width: 5%;
+}
+
+.Ajouter {
+    background: #030303;
+    opacity: .75;
+    color: #f1f2f3;
+}
+
+.Accueil {
+    color: #f1f2f3;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 2%;
+    border-radius: 5px;
+    background: #030303;
+    opacity: .75;
+    box-shadow: 1px 1px 50px #000;
+    display: block;
+    padding:  0 2.5%;
+}
+
+.tab_sortie {
+    margin-left: 2%;
+    margin-right: 2%;
+    color: black;
+}
+
+.NSortie {
+    color: #f1f2f3;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 80%;
+    border-radius: 5px;
+    background: #030303;
+    opacity: .75;
+    box-shadow: 1px 1px 50px #000;
+    display: block;
+    padding:  0 2.5%;
+}
+
+.fa, .fas, .far {
+    color: #030303;
+}
+
+.fa:hover, .fas:hover, .far:hover {
+    color: greenyellow;
+}
+
+.Accueil table, .Accueil thead, .Accueil tbody, .Accueil td, .Accueil th,
+.Participant table, .Participant thead, .Participant tbody, .Participant td, .Participant th
+{
+    border-color: #f1f2f3;
+    padding-left: 1%;
+}
+
+@media (max-width: 787px) {
+    .smartphone {
+        display: none;
+    }
+}
+
+.Participant {
+    color: #f1f2f3;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 2%;
+    border-radius: 5px;
+    background: #030303;
+    opacity: .75;
+    box-shadow: 1px 1px 50px #000;
+    display: block;
+    padding:  1% 2%;
+}
+
+.Inscription2 {
+    color: #f1f2f3;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 550px;
+    border-radius: 5px;
+    background: #030303;
+    opacity: .75;
+    box-shadow: 1px 1px 50px #000;
+    display: block;
+    padding:  1%;
+}

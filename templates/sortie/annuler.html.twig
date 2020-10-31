@@ -1,0 +1,39 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Sortie | Annuler {{ sortie.nom }}{% endblock %}
+
+{% block main %}
+    <div class="Accueil">
+        <div>
+            <h1>Annuler la Sortie</h1>
+        </div>
+
+        <div class="info row">
+            <div class="participant col-md-6 mb-3">
+                <b>Nom : </b>{{ sortie.nom }}
+                <br>
+                <b>Date de la sortie : </b> {{ sortie.dateDebut | format_datetime('short', 'none', locale='fr') }}
+                <br>
+                <b>Campus : </b> {{ sortie.Campus.nomCampus }}
+                <br>
+                <b>Lieu : </b> {{ sortie.Lieux.nomLieu }}
+                <br>
+                <b>Rue : </b> {{ sortie.Lieux.rueLieu }}
+                <br>
+                <b>Code Postal : </b>{{ sortie.Lieux.ville.codePostal }}
+                <br>
+                <b>Ville : </b>{{ sortie.Lieux.ville.nomVille }}
+            </div>
+
+            <div class="participant col-md-6 mb-3">
+                {{ form_start(AnnulSortForm) }}
+                {{ form_widget(AnnulSortForm) }}
+                <button type="submit" class="btn btn-success mb-2">Enregistrer</button>
+                {{ form_end(AnnulSortForm) }}
+                <a href="{{ path('home') }}" class="btn btn-primary mb-2" >Retour Accueil</a>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block main %}
+    <div>
+        <h1>{{ app.user.pseudo }}</h1>
+    </div>
+
+    <div class="info row">
+        <div class="participant col-md-6 mb-3">
+            {% if app.user.UrlPhoto is null   %}
+                <img src="{{ asset('img/profile.png') }}" alt="profile">
+            {% else %}
+                <img src="{{ vich_uploader_asset(app.user, 'imageFile') }}" alt="{{ app.user.pseudo }}">
+            {% endif %}
+        </div>
+        <div class="InfoP col-md-6">
+            <div>
+                <b>Nom : </b>
+                {{ app.user.nom }}
+            </div>
+            <div>
+                <b>Prénom : </b>
+                {{ app.user.prenom }}
+            </div>
+            <br>
+            <div>
+                <b>Téléphone : </b>
+                {{ app.user.telephone }}
+            </div>
+            <div>
+                <b>Email : </b>
+                {{ app.user.mail }}
+            </div>
+            <br>
+            <div>
+                <b>Campus : </b>
+                {{ app.user.campus.nomCampus }}
+            </div>
+            <br>
+            <div>
+                <b>Le compte est
+                    {% if  app.user.actif == 1 %}
+                        Actif
+                    {% else %}
+                        Non-Actif
+                    {% endif %}
+                </b>
+            </div>
+            <br>
+            <span>
+                <a class="btn btn-success" href="{{ path('participant_modif', {'id': app.user.id}) }}">Modifier le profile</a>
+                <a class="btn btn-warning" href="{{ path('password_modif', {'id': app.user.id}) }}">Modifier Mot de passe</a>
+                <a class="btn btn-primary" href="{{ path('home') }}">Accueil</a>
+            </span>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Admin | CSV {% endblock %}
+
+{% block main %}
+    <div class="Inscription2">
+        <h1>Ajout fichier.csv</h1>
+        <div class="justify-content-center mt-3 ">
+            {{ form_start(csvForm) }}
+
+            {{ form_widget(csvForm) }}
+            <div>{{ form_errors(csvForm) }}</div>
+            <button class="btn btn-outline-success btn-large btn-block mt-2 mb-1" type="submit">Envoyer !</button>
+            {{ form_end(csvForm) }}
+        </div>
+    </div>
+
+
+{% endblock %}

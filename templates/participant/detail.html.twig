@@ -1,0 +1,49 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block main %}
+    <div>
+        <h1>{{ participant.pseudo }}</h1>
+    </div>
+
+    <div class="info row">
+        <div class="participant col-md-6 mb-3">
+            {% if participant.UrlPhoto is null   %}
+                <img src="{{ asset('img/profile.png') }}" alt="profile">
+            {% else %}
+                <img src="{{ vich_uploader_asset(app.user, 'imageFile') }}" alt="{{ participant.pseudo }}">
+            {% endif %}
+        </div>
+        <div class="InfoP col-md-6">
+            <div>
+                <b>Nom : </b>
+                {{ participant.nom }}
+            </div>
+            <div>
+                <b>Prénom : </b>
+                {{ participant.prenom }}
+            </div>
+            <br>
+            <div>
+                <b>Campus : </b>
+                {{ participant.Campus.nomCampus }}
+            </div>
+            <br>
+            <div>
+                <b>Le compte est
+                    {% if  participant.actif == 1 %}
+                        Actif
+                    {% else %}
+                        Non-Actif
+                    {% endif %}
+                </b>
+            </div>
+            <br>
+            <span>
+                <a class="btn btn-primary" href="{{ path('home') }}">Accueil</a>
+            </span>
+        </div>
+    </div>
+
+{% endblock %}

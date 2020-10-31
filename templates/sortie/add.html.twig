@@ -1,0 +1,32 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Nouvelle Sortie{% endblock %}
+
+{% block main %}
+    <div class="Accueil">
+        <h1>Nouvelle Sortie</h1>
+        <div style="color: red; font-weight: bold;" class="text-center mb-2">
+            <i style="color: red;" class="fas fa-exclamation-triangle"></i> - Penser à ce que le lieu soit déjà créé avant de créér une sortie
+        </div>
+        {{ form_start(sortieForm) }}
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_row(sortieForm.nom) }}
+                {{ form_row(sortieForm.dateDebut) }}
+                {{ form_row(sortieForm.datecloture) }}
+                {{ form_row(sortieForm.nbInscriptionMax) }}
+                {{ form_row(sortieForm.duree) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row(sortieForm.descriptioninfo) }}
+                <div>Campus : {{  app.user.Campus.nomCampus }}</div>
+                {{ form_row(sortieForm.Lieux) }}
+
+                <button type="submit" class="btn btn-success mb-2">Enregistrer la nouvelle sortie</button>
+                {{ form_end(sortieForm) }}
+                <a href="{{ path('home') }}" class="btn btn-primary mb-2" >Retour à l'accueil</a>
+            </div>
+        </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Particpants | Liste{% endblock %}
+
+
+{% block main %}
+    <div class="Participant">
+        <a href="{{ path('inscription_manuel') }}" class="btn btn-primary" title="Nouvel Utilisateur"><i style="color: white;" class="fas fa-address-card"></i> - Nouvel Utilisateur</a>
+        <a href="{{ path('add_csv') }}" class="btn btn-warning" title="fichier CSV"><i class="far fa-file-code"></i> - Fichier CSV</a>
+        <h1>Les participants de Sortir.com.fr :</h1>
+        <table class="mb-4">
+            <thead>
+            <tr>
+                <th class="camp1">Peudo</th>
+                <th class="camp1">Nom et Prénom</th>
+                <th class="camp1">Status</th>
+                <th class="camp1">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for particip in participant %}
+                <tr>
+                    <td class="camp1">
+                        <a href="{{ path('participant_sortie', {'id': particip.id }) }}" title="Profile {{ particip.pseudo }}">{{ particip.pseudo }}</a>
+                    </td>
+                    <td class="camp1">
+                        {{ particip.nom | upper }} {{ particip.prenom }}
+                    </td>
+                    <td class="camp1">
+                        {% if  particip.actif == 1 %}
+                            Actif
+                        {% else %}
+                            Non-Actif
+                        {% endif %}
+                    </td>
+                    <td class="camp1">
+                        {% if  particip.actif == 1 %}
+                            <a href="{{ path('participant_desactif', {'id': particip.id }) }}" title="Désactivé : {{ particip.pseudo }}"><i style="color: red;" class="far fa-times-circle"></i></a>
+                        {% else %}
+                            <a href="{{ path('participant_actif', {'id': particip.id }) }}" title="Activé : {{ particip.pseudo }}"><i style="color:lawngreen;" class="fas fa-check-circle"></i></a>
+                        {% endif %}
+                        -
+                        <a href="{{ path('remove_participant', {'id': particip.id }) }}" title="Supprimer : {{ particip.pseudo }}"><i style="color: lightgoldenrodyellow;"  class="fas fa-minus-square"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

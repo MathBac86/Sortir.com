@@ -1,0 +1,49 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Villes{% endblock %}
+
+{% block main %}
+    <h1>Les villes</h1>
+    <div class="text-center">
+        <div class="list">
+            <table>
+                <thead>
+                <tr>
+                    <th class="camp">Ville</th>
+                    <th class="camp">Code Postal</th>
+                    <th class="camp">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for villes in ville %}
+                        <tr>
+                            <td>
+                                {{ villes.nomVille }}
+                            </td>
+                            <td>
+                                {{ villes.codePostal }}
+                            </td>
+                            <td>
+                                <a href="{{ path('update_ville', {'id': villes.id}) }}" title="Modifier {{ villes.nomVille }}"><i class="far fa-edit"></i></a>
+                                <a href="{{ path('delete_ville', {'id': villes.id}) }}" title="Supprimer {{ villes.nomVille }}"><i class="fas fa-trash-alt"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    <tr class="Ajouter">
+                        {{ form_start(VilleForm) }}
+                        <td class="camp">
+                            {{ form_widget(VilleForm.nomVille) }}
+                        </td>
+                        <td class="camp">
+                            {{ form_widget(VilleForm.codePostal) }}
+                        </td>
+                        <td class="camp">
+                            <button type="submit" class="btn btn-success mb-2">{{ button|default('Ajouter') }}</button>
+                        </td>
+                        {{ form_end(VilleForm) }}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

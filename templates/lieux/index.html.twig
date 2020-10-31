@@ -1,0 +1,70 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Villes{% endblock %}
+
+{% block main %}
+    <h1>Les lieux</h1>
+    <div class="text-center">
+        <div class="list">
+            <table>
+                <thead>
+                <tr>
+                    <th class="camp">Nom</th>
+                    <th class="camp">Rue</th>
+                    <th class="camp">Latitude</th>
+                    <th class="camp">Longitude</th>
+                    <th class="camp">Ville</th>
+                    <th class="camp">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for lieu in lieux %}
+                    <tr>
+                        <td>
+                            {{ lieu.nomLieu }}
+                        </td>
+                        <td>
+                            {{ lieu.rueLieu }}
+                        </td>
+                        <td>
+                            {{ lieu.latitude }}
+                        </td>
+                        <td>
+                            {{ lieu.longitude }}
+                        </td>
+                        <td>
+                            {{ lieu.Ville.nomVille }}
+                        </td>
+                        <td>
+                            <a href="{{ path('update_lieu', {'id': lieu.id}) }}" title="Modifier {{ lieu.nomLieu }}"><i class="far fa-edit"></i></a>
+                            <a href="{{ path('delete_lieu', {'id': lieu.id}) }}" title="Supprimer {{ lieu.nomLieu }}"><i class="fas fa-trash-alt"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                <tr class="Ajouter">
+                    {{ form_start(LieuxForm) }}
+                    <td class="camp">
+                        {{ form_widget(LieuxForm.nomLieu) }}
+                    </td>
+                    <td class="camp">
+                        {{ form_widget(LieuxForm.rueLieu) }}
+                    </td>
+                    <td class="camp">
+                        {{ form_widget(LieuxForm.latitude) }}
+                    </td>
+                    <td class="camp">
+                        {{ form_widget(LieuxForm.longitude) }}
+                    </td>
+                    <td class="camp">
+                        {{ form_widget(LieuxForm.ville) }}
+                    </td>
+                    <td class="camp">
+                        <button type="submit" class="btn btn-success mb-2">{{ button|default('Ajouter') }}</button>
+                    </td>
+                    {{ form_end(LieuxForm) }}
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

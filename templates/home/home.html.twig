@@ -1,0 +1,142 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Sortie | Accueil{% endblock %}
+
+
+{% block main %}
+    <div class="mr-3">
+        {% if (is_granted("ROLE_ADMIN") or is_granted("ROLE_USER")) %}
+            <h4 class="text-center">Bonjour {{ app.user.pseudo }} . On est le {{ "now"|date("d/m/Y") }}</h4>
+        {% endif %}
+    </div>
+    <h1>Les sorties</h1>
+
+    <div class="Accueil">
+        <h2>Les filtres des sorties</h2>
+        {{ form_start(FilterForm) }}
+        <div class="row">
+            <div class="col-md-5">
+                {{ form_row(FilterForm.campus) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                {{ form_row(FilterForm.nom) }}
+                {{ form_row(FilterForm.dateDebut_du) }}
+                {{ form_row(FilterForm.dateDebut_au) }}
+            </div>
+            <div class="col-md-5">
+                {{ form_row(FilterForm.organisateur) }}
+                {{ form_row(FilterForm.BeInscrit) }}
+                {{ form_row(FilterForm.NotInscrit) }}
+                {{ form_row(FilterForm.Finish) }}
+            </div>
+            <div class="col-md-2">
+                {{ form_row(FilterForm.submit) }}
+                <a class="btn btn-secondary btn-large btn-default btn-block mb-2" href="{{ path('home') }}">Annuler filtres</a>
+                <a class="btn btn-primary btn-large btn-default btn-block mb-2" href="{{ path('add_sortie') }}">Nouvelle Sortie</a>
+            </div>
+        </div>
+
+        {{ form_end(FilterForm) }}
+    </div>
+
+    {%  if(sorties is empty ) %}
+        <div class="text-center">
+            <h2>Désolé pas de sorties avec ses filtres - Retentez votre chance</h2>
+        </div>
+    {% else %}
+        <div class="text-center">
+            <div class="tab_sortie">
+                <table>
+                    <thead>
+                    <tr>
+                        <th class="camp1">Nom de la sortie</th>
+                        <th class="camp1">Date de la sortie</th>
+                        <th class="camp3 smartphone">Clôture</th>
+                        <th class="camp3 smartphone">Inscrits/Places</th>
+                        <th class="camp3">Etat</th>
+                        <th class="camp3 smartphone">Inscrit</th>
+                        <th class="camp1">Organisateur</th>
+                        <th class="camp1 smartphone">Campus</th>
+                        <th class="camp1">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for sortie in sorties %}
+                        {% set difference = date("now").diff(date(sortie.dateDebut)) %}
+                        {% set leftDays = difference.days %}
+
+                            {% if ( leftDays < 30) %}
+                            <tr>
+                                <td class="camp1">
+                                    {{ sortie.nom }}
+                                    {% if (is_granted("ROLE_ADMIN")) %}
+                                        {% if (sortie.Etat.libelleEtat != 'Annulée') and (sortie.Etat.LibelleEtat != 'Finit') %}
+                                            <a href="{{ path('annul_sortie', {'id': sortie.id }) }}" title="Annuler {{ sortie.nom }}"><i style="color: red;" class="fas fa-times-circle"></i></a>
+                                        {% endif %}
+                                    {% endif %}
+                                </td>
+                                <td class="camp1">
+                                    {{ sortie.dateDebut | format_datetime('short', 'short',locale='fr') }}
+                                </td>
+                                <td class="camp3 smartphone">
+                                    {{ sortie.datecloture | format_datetime('short', 'none',locale='fr') }}
+                                </td>
+                                <td class="camp1 smartphone">
+                                   {{ sortie.inscriptions | length }} / {{ sortie.nbInscriptionMax }}
+                                </td>
+                                <td class="camp2">
+                                    {{ sortie.Etat.libelleEtat }}
+                                </td>
+                                <td class="smartphone inscrit">
+                                    {% for parts in part %}
+                                        {%  if (sortie.id == parts.Sortie.id) and (app.user.id == parts.Participant.id) %}
+                                            <i style="color: green;" class="fas fa-check"></i>
+                                        {%  endif %}
+                                    {%  endfor %}
+                                </td>
+                                <td class="camp1">
+                                    {{ sortie.organisateur.pseudo }}
+                                </td>
+                                <td class="camp2 smartphone">
+                                    {{ sortie.organisateur.Campus.nomCampus }}
+                                </td>
+                                <td class="camp1">
+                                    <a href="{{ path('sortie_detail', {'id': sortie.id }) }}" title="Afficher {{ sortie.nom }}"><i class="far fa-eye"></i></a>
+                                    {% if( sortie.organisateur.id == app.user.id ) %}
+                                        {% if (sortie.Etat.libelleEtat != 'Annulée') and (sortie.Etat.LibelleEtat != 'Finit') %}
+                                            <a href="{{ path('Modif_sortie', {'id': sortie.id }) }}" title="Modifier {{ sortie.nom }}"><i class="fas fa-edit"></i></a>
+                                            <a href="{{ path('annul_sortie', {'id': sortie.id }) }}" title="Annuler {{ sortie.nom }}"><i class="fas fa-trash-alt"></i></a>
+                                        {% endif %}
+                                    {% else %}
+
+                                        {% set inscrit = false %}
+
+                                        {% for parts in part %}
+
+                                            {% if (parts.Sortie.id == sortie.id) and (app.user.id == parts.Participant.id) %}
+                                                {% set inscrit = true %}
+                                            {% endif %}
+
+                                        {% endfor %}
+
+                                        {% if ( inscrit == false) %}
+                                            {% if (sortie.inscriptions | length != sortie.nbInscriptionMax) and ((sortie.Etat.libelleEtat != 'Annulée') and (sortie.Etat.LibelleEtat != 'Finit')) and (sortie.dateCloture < "now"|date("d/m/Y")) %}
+                                                <a  href="{{ path('inscription_sortie', {'id': sortie.id }) }}" title="S'incrire {{ sortie.nom }}"><i style="color: green;" class="fas fa-sign-in-alt"></i></a>
+                                            {% endif %}
+                                        {% else %}
+                                            <a  href="{{ path('delete_inscription_sortie', {'id': sortie.id }) }}" title="Se désinscrire {{ sortie.nom }}"><i style="color: darkred;" class="fas fa-sign-out-alt"></i></a>
+                                        {% endif %}
+
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

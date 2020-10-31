@@ -1,0 +1,110 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Sortie | {{ sortie.nom }}{% endblock %}
+
+{% block main %}
+    <div class="Accueil">
+        <div class="text-center">
+            <h1>{{ sortie.nom }}</h1>
+            {%  if(sortie.MotifAnnulation is not null) %}
+                <b style="color: red;">Motif annulation : {{ sortie.MotifAnnulation }}</b>
+            {% endif %}
+            <br>
+        </div>
+
+        <div class="text-center InfoP col-md-12 mt-3">
+            <a class="btn btn-primary" href="{{ path('home') }}">Accueil</a>
+
+            {% if( sortie.organisateur.id == app.user.id ) %}
+                {% if (sortie.Etat.libelleEtat != 'Annulée') and (sortie.Etat.LibelleEtat != 'Finit') %}
+                    <a class="btn btn-info" href="{{ path('Modif_sortie', {'id': sortie.id }) }}" title="Modifier {{ sortie.nom }}"><i class="fas fa-edit"></i></a>
+                    <a class="btn btn-danger" href="{{ path('annul_sortie', {'id': sortie.id }) }}" title="Supprimer {{ sortie.nom }}"><i class="fas fa-trash-alt"></i></a>
+                {% endif %}
+
+            {% else %}
+
+                {% set inscrit = false %}
+
+                {% for parts in inscrits %}
+
+                    {% if (parts.Sortie.id == sortie.id) and (app.user.id == parts.Participant.id) %}
+                        {% set inscrit = true %}
+                    {% endif %}
+
+                {% endfor %}
+
+                {% if ( inscrit == false) %}
+                    {% if (sortie.inscriptions | length != sortie.nbInscriptionMax) and ((sortie.Etat.libelleEtat != 'Annulée') and (sortie.Etat.LibelleEtat != 'Finit')) %}
+                        <a class="btn btn-success" href="#" title="S'incrire {{ sortie.nom }}"><i style="color: green;" class="fas fa-sign-in-alt"></i></a>
+                    {% endif %}
+                {% else %}
+                    <a class="btn btn-warning" href="#" title="S'incrire {{ sortie.nom }}"><i style="color: darkred;" class="fas fa-sign-out-alt"></i></a>
+                {% endif %}
+            {% endif %}
+        </div>
+
+
+        <div class="info row">
+            <div class="participant col-md-6 mb-3">
+                <b>Date et heure de début : </b> {{ sortie.dateDebut | format_datetime('short', 'short', locale='fr') }}
+                <br>
+                <b>Date limite d'inscription : </b> {{ sortie.datecloture | format_datetime('short', 'short', locale='fr') }}
+                <br>
+                <b>Nombre de place : </b> {{ sortie.nbInscriptionMax }}
+                <br>
+                <b>Durée : </b>{{ sortie.duree }} minutes
+                <br>
+                <b>Description : </b>{{ sortie.descriptioninfo }}
+                <br>
+                <b>Campus : </b> {{ sortie.Campus.nomCampus }}
+                <br>
+                <b>Organisateur : </b> {{ sortie.Organisateur.pseudo }}
+                <br>
+                <b>Lieu : </b> {{ sortie.Lieux.nomLieu }}
+                <br>
+                <b>Rue : </b> {{ sortie.Lieux.rueLieu }}
+                <br>
+                <b>Code Postal : </b>{{ sortie.Lieux.ville.codePostal }}
+                <br>
+                <b>Ville : </b>{{ sortie.Lieux.ville.nomVille }}
+                <br>
+                <b>Latitude : </b>{{ sortie.Lieux.latitude }}
+                <br>
+                <b>Longitude : </b>{{ sortie.Lieux.longitude }}
+                <br>
+                <br>
+
+            </div>
+
+            <div class="participant col-md-6 mb-3">
+                <h3>Les participants de la sortie :</h3>
+                <table>
+                    <thead>
+                    <tr>
+                        <th class="camp1">Peudo</th>
+                        <th class="camp1">Nom et Prénom</th>
+                        <th class="camp1">Date d'inscription</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for inscrit in inscrits %}
+                        <tr>
+                            <td class="camp1">
+                                <a href="{{ path('participant_sortie', {'id': inscrit.Participant.id }) }}" title="Profile {{ inscrit.Participant.pseudo }}">{{ inscrit.Participant.pseudo }}</a>
+                            </td>
+                            <td class="camp1">
+                                {{ inscrit.Participant.nom | upper }} {{ inscrit.Participant.prenom }}
+                            </td>
+                            <td class="camp1">
+                                {{ inscrit.dateInscription | format_datetime('short', 'none',locale='fr') }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Campus{% endblock %}
+
+{% block main %}
+    <h1>Les campus</h1>
+    <div class="text-center">
+        <div class="list">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="camp">Campus</th>
+                        <th class="camp">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for campuss in campus %}
+                        <tr>
+                            <td class="camp">
+                                {{ campuss.nomCampus }}
+                            </td class="camp">
+
+                            <td class="camp">
+                                <a href="{{ path('update_campus', {'id': campuss.id}) }}" title="Modifier {{ campuss.nomCampus }}"><i class="far fa-edit"></i></a>
+                                <a href="{{ path('delete_campus', {'id': campuss.id}) }}" title="Supprimer {{ campuss.nomCampus }}"><i class="fas fa-trash-alt"></i></a>
+                            </td class="camp">
+                        </tr>
+                    {% endfor %}
+                    <tr class="Ajouter">
+                        {{ form_start(CampusForm) }}
+                        <td class="camp">
+
+                            {{ form_widget(CampusForm) }}
+                        </td>
+                        <td class="camp">
+                            <button type="submit" class="btn btn-success mb-2">{{ button|default('Ajouter') }}</button>
+                        </td>
+                        {{ form_end(CampusForm) }}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

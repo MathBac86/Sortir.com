@@ -1,0 +1,15 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}S'inscrire{% endblock %}
+
+{% block main %}
+    <div class="Inscription2">
+        <h1>Inscription Manuel d'un Utilisateur</h1>
+        {{ form_start(registerForm) }}
+        {{ form_widget(registerForm) }}
+        <button type="submit" class="btn btn-success mb-2 btn-large btn-block">Nouvel Utilisateur</button>
+        {{ form_end(registerForm) }}
+        <a href="{{ path('liste') }}" class="btn btn-primary btn-large btn-block mb-2" >Retour Liste</a>
+    </div>
+
+{% endblock %}
